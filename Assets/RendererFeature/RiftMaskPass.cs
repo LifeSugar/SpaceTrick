@@ -15,6 +15,7 @@ namespace Rift.Rendering
         List<ShaderTagId> m_ShaderTagIdList = new List<ShaderTagId>();
         RenderStateBlock m_RenderStateBlock;
         RTHandle RiftMaskRT;
+        public RTHandle m_CameraDepthRT;
 
         public RiftMaskPass(
             RenderPassEvent renderPassEvent,
@@ -47,17 +48,21 @@ namespace Rift.Rendering
             m_RenderStateBlock.mask |= RenderStateMask.Depth;
             m_RenderStateBlock.depthState = new DepthState(enableDepthTest, depthCompareFunction);
         }
+        public void SetDepthRT(RTHandle depthRT)
+        {
+            m_CameraDepthRT = depthRT;
+        }
 
         public override void Configure(CommandBuffer cmd, RenderTextureDescriptor cameraTextureDescriptor)
         {
-            ConfigureTarget(RiftMaskRT);
-            ConfigureClear(ClearFlag.All, Color.black);
+            ConfigureTarget(RiftMaskRT, m_CameraDepthRT);
+            ConfigureClear(ClearFlag.Color, Color.black);
         }
         public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
         {
             base.OnCameraSetup(cmd, ref renderingData);
             var discriptor = renderingData.cameraData.cameraTargetDescriptor;
-            discriptor.depthBufferBits = 32;
+            discriptor.depthBufferBits = 0;
             RenderingUtils.ReAllocateIfNeeded(ref RiftMaskRT, discriptor, name: "RiftMaskRT", filterMode: FilterMode.Point, wrapMode: TextureWrapMode.Clamp);
         }
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
@@ -74,6 +79,8 @@ namespace Rift.Rendering
                 cmd.Clear();
 
                 context.DrawRenderers(renderingData.cullResults, ref drawingSettings, ref m_FilteringSettings, ref m_RenderStateBlock);
+
+                cmd.SetGlobalTexture("_RiftMaskRT", RiftMaskRT);
             }
             context.ExecuteCommandBuffer(cmd);
             CommandBufferPool.Release(cmd);

@@ -24,25 +24,31 @@ namespace Rift.Rendering
 
         public override void Create()
         {
-            throw new System.NotImplementedException();
+            riftMaskPass = new RiftMaskPass(
+                settings.renderPassEvent,
+                settings.passTag,
+                null,
+                settings.maskLayer
+            );
+            riftMaskPass.renderPassEvent = settings.renderPassEvent;
+            riftMaskPass.overrideShader = settings.overrideShader;
+            riftMaskPass.overrideShaderPassIndex = settings.overrideShaderPassIndex;
+            riftMaskPass.SetDepthSate(settings.enableDepthTest, settings.depthCompareFunction);
         }
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
-            if (riftMaskPass == null)
-            {
-                riftMaskPass = new RiftMaskPass(settings.renderPassEvent,
-                    settings.passTag,
-                    null,
-                    settings.maskLayer
-                );
-                riftMaskPass.SetDepthSate(settings.enableDepthTest, settings.depthCompareFunction);
-                riftMaskPass.renderPassEvent = settings.renderPassEvent;
-            }
+            if (renderingData.cameraData.cameraType == CameraType.Preview || 
+        renderingData.cameraData.cameraType == CameraType.Reflection)
+    {
+        return;
+    }
+            
             renderer.EnqueuePass(riftMaskPass);
         }
         public override void SetupRenderPasses(ScriptableRenderer renderer, in RenderingData renderingData)
         {
             riftMaskPass.ConfigureInput(ScriptableRenderPassInput.Depth);
+            riftMaskPass.SetDepthRT(renderer.cameraDepthTargetHandle);
         }
 
     }
