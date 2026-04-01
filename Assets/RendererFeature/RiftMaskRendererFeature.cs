@@ -13,7 +13,7 @@ namespace Rift.Rendering
         public Shader overrideShader = null;
         public int overrideShaderPassIndex = 0;
         public LayerMask maskLayer = -1;
-        public bool enableDepthTest = true;
+        public bool enableDepthWrite = true;
         public CompareFunction depthCompareFunction = CompareFunction.LessEqual;
     }
 
@@ -24,6 +24,7 @@ namespace Rift.Rendering
 
         public override void Create()
         {
+            riftMaskPass?.Dispose();
             riftMaskPass = new RiftMaskPass(
                 settings.renderPassEvent,
                 settings.passTag,
@@ -33,7 +34,12 @@ namespace Rift.Rendering
             riftMaskPass.renderPassEvent = settings.renderPassEvent;
             riftMaskPass.overrideShader = settings.overrideShader;
             riftMaskPass.overrideShaderPassIndex = settings.overrideShaderPassIndex;
-            riftMaskPass.SetDepthSate(settings.enableDepthTest, settings.depthCompareFunction);
+            riftMaskPass.SetDepthSate(settings.enableDepthWrite, settings.depthCompareFunction);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            riftMaskPass?.Dispose();
         }
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {

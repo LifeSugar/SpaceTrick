@@ -30,9 +30,9 @@ Material:
     - _SunSize: 0.133
     - _SunSoftness: 0.0219
     m_Colors:
-    - _BottomColor: {r: 1, g: 0.5, b: 0.19999996, a: 1}
-    - _MidColor: {r: 0.8, g: 0.09999997, b: 0.5, a: 1}
+    - _BottomColor: {r: 0.38993704, g: 0.0110358875, b: 0.066736646, a: 1}
+    - _MidColor: {r: 0.5921569, g: 0.38859227, b: 0.24313726, a: 1}
     - _SunColor: {r: 1, g: 0.9, b: 0.19999996, a: 1}
     - _SunDir: {r: 180, g: 0, b: 1, a: 0}
-    - _TopColor: {r: 0.049999982, g: 0.049999982, b: 0.19999996, a: 1}
+    - _TopColor: {r: 0.7169812, g: 0.60213834, b: 0.45769548, a: 1}
   m_BuildTextureStacks: []

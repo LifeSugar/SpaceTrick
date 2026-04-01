@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CinemachineTarget
   layers:
   - Default
   - TransparentFX
@@ -14,6 +15,7 @@ TagManager:
   - Rift
   - inner
   - outer
+  - outerTransparent
   - 
   - 
   - 
@@ -21,8 +23,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - debug
   - 
   - 
   - 

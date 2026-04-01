@@ -39,6 +39,7 @@ namespace Rift.Rendering
                 m_ShaderTagIdList.Add(new ShaderTagId("SRPDefaultUnlit"));
                 m_ShaderTagIdList.Add(new ShaderTagId("UniversalForward"));
                 m_ShaderTagIdList.Add(new ShaderTagId("UniversalForwardOnly"));
+                m_ShaderTagIdList.Add(new ShaderTagId("DepthOnly"));
             }
             m_FilteringSettings = new FilteringSettings(RenderQueueRange.opaque, layerMask);
         }
@@ -88,6 +89,13 @@ namespace Rift.Rendering
         public override void OnCameraCleanup(CommandBuffer cmd)
         {
             base.OnCameraCleanup(cmd);
+            m_CameraDepthRT = null;
+        }
+
+        public void Dispose()
+        {
+            RiftMaskRT?.Release();
+            RiftMaskRT = null;
         }
     }
 }

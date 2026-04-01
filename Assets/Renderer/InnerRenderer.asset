@@ -1,5 +1,70 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6478877136901357545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
+  m_Name: RenderObjects
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    passTag: RenderObjects
+    Event: 300
+    filterSettings:
+      RenderQueueType: 0
+      LayerMask:
+        serializedVersion: 2
+        m_Bits: 128
+      PassNames: []
+    overrideMaterial: {fileID: 0}
+    overrideMaterialPassIndex: 0
+    overrideShader: {fileID: 0}
+    overrideShaderPassIndex: 0
+    overrideMode: 0
+    overrideDepthState: 1
+    depthCompareFunction: 4
+    enableWrite: 1
+    stencilSettings:
+      overrideStencilState: 1
+      stencilReference: 14
+      stencilCompareFunction: 3
+      passOperation: 0
+      failOperation: 1
+      zFailOperation: 0
+    cameraSettings:
+      overrideCamera: 0
+      restoreCamera: 1
+      offset: {x: 0, y: 0, z: 0, w: 0}
+      cameraFieldOfView: 60
+--- !u!114 &-4478501123863480770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 054c72329aec92f4d9d522c21d3664ac, type: 3}
+  m_Name: RiftMaskRendererFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    passTag: RiftMask
+    renderPassEvent: 200
+    overrideShader: {fileID: 4800000, guid: 50a686d41207240d5af710803f0f7e74, type: 3}
+    overrideShaderPassIndex: 0
+    maskLayer:
+      serializedVersion: 2
+      m_Bits: 64
+    enableDepthWrite: 0
+    depthCompareFunction: 4
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16,10 +81,12 @@ MonoBehaviour:
     debugReplacementPS: {fileID: 4800000, guid: cf852408f2e174538bcd9b7fda1c5ae7, type: 3}
     hdrDebugViewPS: {fileID: 4800000, guid: 573620ae32aec764abd4d728906d2587, type: 3}
   m_RendererFeatures:
-  - {fileID: 4620939090124829238}
-  m_RendererFeatureMap: 36729ba39edf2040
+  - {fileID: -4478501123863480770}
+  - {fileID: -6478877136901357545}
+  - {fileID: 4744451499989319231}
+  m_RendererFeatureMap: 3ef6edb9f42ad9c11740980f926716a63fbeee8680add741
   m_UseNativeRenderPass: 0
-  postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
+  postProcessData: {fileID: 0}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
   shaders:
     blitPS: {fileID: 4800000, guid: c17132b1f77d20942aa75f8429c0f8bc, type: 3}
@@ -42,21 +109,21 @@ MonoBehaviour:
   m_AssetVersion: 2
   m_OpaqueLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   m_TransparentLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 0
   m_DefaultStencilState:
     overrideStencilState: 0
-    stencilReference: 0
-    stencilCompareFunction: 8
+    stencilReference: 13
+    stencilCompareFunction: 2
     passOperation: 2
     failOperation: 0
     zFailOperation: 0
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 2
   m_DepthPrimingMode: 0
-  m_CopyDepthMode: 2
+  m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
 --- !u!114 &3234225923557771335
@@ -80,9 +147,9 @@ MonoBehaviour:
     maskLayer:
       serializedVersion: 2
       m_Bits: 4294967295
-    enableDepthTest: 1
+    enableDepthWrite: 1
     depthCompareFunction: 4
---- !u!114 &4620939090124829238
+--- !u!114 &4744451499989319231
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,10 +158,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54e0429b0f8ad4d069ca6d703f705c3b, type: 3}
-  m_Name: WriteStencilFeature
+  m_Script: {fileID: 11500000, guid: c8fe8a890f171894aa48605f5bbf8d20, type: 3}
+  m_Name: GrabInnerDepthFeature
   m_EditorClassIdentifier: 
   m_Active: 1
   settings:
-    passEvent: 250
-    stencilMaterial: {fileID: 2100000, guid: 4c154068ae3664c9e8b00f75eba62ec7, type: 2}
+    depthCopyShader: {fileID: 4800000, guid: e903121503846c64a847ff589a317947, type: 3}
+    renderPassEvent: 300

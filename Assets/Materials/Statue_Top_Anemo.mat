@@ -54,7 +54,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _DetailNormalScale: 1
-    - _Metallic: 1
+    - _Metallic: 0
     - _OcclusionStrength: 1
     - _Roughness: 1
     - _Specular: 0.5
